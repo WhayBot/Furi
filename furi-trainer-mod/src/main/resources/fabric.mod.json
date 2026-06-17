@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "furi-trainer",
+  "version": "${version}",
+  "name": "Furi Trainer",
+  "description": "Imitation Learning Logger for Mine-AI",
+  "authors": ["Celestarc"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/furi-trainer/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.celestarc.furitrainer.FuriTrainerMod"
+    ],
+    "client": [
+      "com.celestarc.furitrainer.FuriTrainerClient"
+    ]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.1.2",
+    "java": ">=24",
+    "fabric-api": "*"
+  }
+}
