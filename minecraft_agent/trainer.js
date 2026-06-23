@@ -29,21 +29,18 @@ bot.on('spawn', () => {
     
     setInterval(() => {
         const target = bot.players[TARGET_PLAYER]?.entity;
-        if (!target) return; // Target not found / not spawned
+        if (!target) return; 
 
         const currentPos = target.position.clone();
         
         if (lastPos) {
             const delta = currentPos.minus(lastPos);
             
-            // Is the player moving?
             if (Math.abs(delta.x) > 0.01 || Math.abs(delta.z) > 0.01 || delta.y > 0) {
                 
-                // 1. GUESS ACTION
                 let action = "none";
-                const isJumping = delta.y > 0.1; // Significant vertical delta = jump
+                const isJumping = delta.y > 0.1; 
                 
-                // Check forward movement (Simple assumption: always running forward/jumping forward)
                 if (isJumping && (Math.abs(delta.x) > 0 || Math.abs(delta.z) > 0)) {
                     action = "jump_forward";
                 } else if (isJumping) {
@@ -53,7 +50,6 @@ bot.on('spawn', () => {
                 }
                 
                 if (action !== "none") {
-                    // 2. READ STATE (ENVIRONMENT)
                     const yaw = target.yaw;
                     const forwardVector = vec3(-Math.sin(yaw), 0, -Math.cos(yaw)).normalize();
                     
@@ -72,7 +68,6 @@ bot.on('spawn', () => {
                     if (front1 && front2) frontType = "wall_2high";
                     else if (front1) frontType = "wall_1high";
 
-                    // BUG-R2-07 Fix: Format state identik dengan q_learning_navigation.js
                     let targetDir = "front";
                     if (action === 'back') targetDir = "back";
                     else if (action === 'left') targetDir = "left";
@@ -80,14 +75,12 @@ bot.on('spawn', () => {
 
                     const stateStr = `${targetDir}_${frontType}_stuck${isStuck}_airBelow${isAirBelow}_inWater${inWater}`;
 
-                    // 3. INJECT MEMORY (+100 REWARD)
                     if (!qTable[stateStr]) {
                         qTable[stateStr] = { forward: 0, jump_forward: 0, left: 0, right: 0, back: 0, jump: 0 };
                     }
                     if (qTable[stateStr][action] === undefined) qTable[stateStr][action] = 0;
                     
                     qTable[stateStr][action] = 100.0;
-                    // BUG-R2-06 Fix: Async write dengan debounce
                     if (!_saving) {
                         _saving = true;
                         fs.writeFile(qTableFile, JSON.stringify(qTable), () => { _saving = false; });
