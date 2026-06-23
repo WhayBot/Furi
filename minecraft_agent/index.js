@@ -14,7 +14,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-rl.question('Should Furi join the server? (y/n) [default: y]: ', (answer) => {
+rl.question('Should Furi join the server? (y/n) [default: y]: ', (answer) => { // You can change the text 
     const spawnBot = answer.toLowerCase() !== 'n';
     
     if (spawnBot) {
@@ -23,7 +23,7 @@ rl.question('Should Furi join the server? (y/n) [default: y]: ', (answer) => {
         const maxRetries = 5;
 
         function connectFuri() {
-            console.log(`Starting Natural AI Bot connecting to ${host}:${port} as ${username} (Attempt ${retries + 1}/${maxRetries + 1})`);
+            console.log(`Starting Natural AI Bot connecting to ${host}:${port} as ${username} (Attempt ${retries + 1}/${maxRetries + 1})`); // This one also
 
             activeAgent = new MinecraftAgent({
                 host: host,
