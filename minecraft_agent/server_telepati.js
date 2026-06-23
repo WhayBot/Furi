@@ -67,8 +67,8 @@ app.post('/teach-action', (req, res) => {
 app.listen(3000, () => {
     console.log('======================================================');
     console.log('[Trainer] Telepathy Server (RECORD ONLY) running on http://localhost:3000');
-    console.log('Furi is asleep and will not join the server.');
-    console.log('You can train freely without consuming API Keys!');
+    console.log('Furi is asleep and will not join the server.'); // You can also change this text
+    console.log('You can train freely without consuming API Keys');
     console.log('======================================================');
 }).on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
