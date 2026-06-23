@@ -1,3 +1,6 @@
+// This file is unused, idk why i push this
+// Please just move on to the next file
+
 const vec3 = require('vec3');
 const SteeringNavigation = require('./physics/steering_navigation');
 const CameraOscillator = require('./physics/camera_oscillator');
